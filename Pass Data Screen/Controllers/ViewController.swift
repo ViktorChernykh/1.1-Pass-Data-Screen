@@ -34,32 +34,32 @@ class ViewController: UIViewController {
         dvc.buttonTag = buttonTag
     }
     
-    // Убираем клавиатуру по кнопке Done
+    // Remove the keyboard by the Done button
     @IBAction func textFieldDoneEditing(sender: UITextField) {
         sender.resignFirstResponder() // в отставку первый реагирующий объект
     }
     
-    // Убираем клавиатуру по клику где-нибудь
+    // We remove the keyboard by touch somewhere
     @IBAction func onTapGestureRecognized(_ sender: AnyObject) {
         loginTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
     }
     
-    // регистрируемся на получение уведомлений о появлении/скрытии клавиатуры
+    // register to receive notifications about the appearance / hiding of the keyboard
     func registerForKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    // снимаемся с регистрации
+    // remove from registration
     func removeKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
-        let userInfo = notification.userInfo    // словарик связанных значений/объектов
-        // получим размер клавиатуры и преобразуем в значение cgRectValue
+        let userInfo = notification.userInfo    // dictionary of related values / objects
+        // get the keyboard size and convert to cgRectValue
         let keyboardFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let fm: CGRect = UIScreen.main.bounds
         let heightHalfScreen = fm.size.height / 2
