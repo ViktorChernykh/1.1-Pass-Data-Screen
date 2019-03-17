@@ -36,7 +36,12 @@ class ViewController: UIViewController {
     
     // Remove the keyboard by the Done button
     @IBAction func textFieldDoneEditing(sender: UITextField) {
-        sender.resignFirstResponder() // в отставку первый реагирующий объект
+        if sender.placeholder! == "User Name" {
+            sender.resignFirstResponder()
+            passwordTextField.becomeFirstResponder()
+        } else {
+            sender.resignFirstResponder() // resign the first responder object
+        }
     }
     
     // We remove the keyboard by touch somewhere
